@@ -1,65 +1,89 @@
-import Image from "next/image";
+import PartnerLogoSlider from "@/components/PartnerLogoSlider";
+import HallOfFame from "./sections/HallOfFame";
+import MagazineRelease from "./sections/MagazineRelease";
+import TrendingSection from "./sections/TrendingSection";
+import InnovationTechnologySection from "./sections/InnovationTechnologySection";
+import VisionaryVoicesSection from "./sections/VisionaryVoicesSection";
+import ShowcaseSection from "./sections/ShowcaseSection";
+import EliteArchivesSection from "./sections/EliteArchives";
+import EditorialHighlight from "./sections/EditorialHighlight";
+import WomenVisionariesSection from "./sections/WomenVisionariesSection";
+import FullScreenLoader from "@/components/FullSreenLoader";
+import HeroSection from "./sections/HeroSection";
+import { getStrapiData } from "@/utils/utils";
 
-export default function Home() {
+const sectionComponentMap = {
+  "sections.magazine-release": MagazineRelease,
+  "sections.elite-archives": EliteArchivesSection,
+  "sections.women-visionaries": WomenVisionariesSection,
+  "sections.hall-of-fame": HallOfFame,
+  "sections.trending-insights": TrendingSection,
+  "sections.innovation-technology": InnovationTechnologySection,
+  "sections.visionary-voices": VisionaryVoicesSection,
+  "sections.showcase": ShowcaseSection,
+  "sections.editorial-highlight": EditorialHighlight,
+};
+
+async function getHomePage() {
+  const apis = [
+    "/home-page?populate=deep",
+    '/home-sections?populate=deep',
+    '/posts'
+  ];
+  return await Promise.all(apis.map(api => getStrapiData(api))).then(([homeRes, sectionsRes, postsRes]) => {
+    const homeData = homeRes?.data?.[0] || {};
+    const sectionsData = sectionsRes?.data || [];
+    // Map sections to their respective components
+    const sectionsMap = {};
+    homeData?.sections.forEach(section => {
+      if (section.__component) {
+        sectionsMap[section.__component] = section;
+      }
+    });
+    return { ...homeData, sections: Object.values(sectionsMap), sectionsData };
+  });
+}
+
+export default async function Home() {
+  let data = null;
+
+  try {
+    const _data = await getHomePage();
+    data = _data;
+  } catch (error) {
+    console.error("Error fetching home page data:", error);
+    return (
+      <FullScreenLoader
+        text="We're having trouble loading this page. Check back again later."
+        textColor="text-red-600"
+        loadingColor="red"
+      />
+    );
+  }
+
+  if (!data) {
+    return <FullScreenLoader text="Loading site details..." />;
+  }
+
+  const site = data || {};
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="min-h-screen relative overflow-hidden">
+      {/* HERO */}
+
+      <HeroSection site={site} />
+
+      <PartnerLogoSlider partner_logos={site.partner_logos || []} />
+
+      {/* Dynamic Sections */}
+      {site?.sections?.map((section, index) => {
+        const Component = sectionComponentMap[section.__component];
+        const sectionName = section.__component.split(".").pop() || "unknown";
+        let sectionData = site.sectionsData?.find(s => s.type === sectionName);
+        
+        if (!Component) return null;
+            return <Component key={index} sectionData={sectionData}/>;
+      })}
+    </main>
   );
 }
