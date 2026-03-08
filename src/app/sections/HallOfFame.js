@@ -1,5 +1,6 @@
 "use client";
 
+import { STRAPI_URL } from "@/utils/constraints";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 
@@ -79,7 +80,7 @@ export default function WallOfFame({ sectionData }) {
                     {/* Image */}
                     <div className="relative h-[480px] overflow-hidden">
                       <img
-                        src={"http://localhost:1337" + leader?.image?.url}
+                        src={STRAPI_URL + leader?.image?.url}
                         alt={leader?.alt_text}
                         className="w-full h-full object-cover transition duration-1000 group-hover:scale-110"
                       />

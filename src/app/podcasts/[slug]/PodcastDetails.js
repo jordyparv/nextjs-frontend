@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import WaveSurfer from "wavesurfer.js";
 import { addTagToText } from "@/utils/utils";
 import FullScreenLoader from "@/components/FullSreenLoader";
-const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+import { STRAPI_URL } from "@/utils/constraints";
+const strapiUrl = STRAPI_URL;
 export default function Podcast({ podcast, trending }) {
   if (!podcast) {
     return <FullScreenLoader />;

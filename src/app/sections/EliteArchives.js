@@ -1,4 +1,5 @@
 "use client";
+import { STRAPI_URL } from "@/utils/constraints";
 import { motion } from "framer-motion";
 
 export default function EliteArchivesSection({ sectionData }) {
@@ -46,7 +47,7 @@ export default function EliteArchivesSection({ sectionData }) {
                   {/* Portrait */}
                   <div className="relative h-[520px] overflow-hidden rounded-[28px] shadow-xl">
                     <img
-                      src={"http://localhost:1337" + member?.image?.url}
+                      src={STRAPI_URL + member?.image?.url}
                       alt={member?.alt_text}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-700 ease-out"
                     />

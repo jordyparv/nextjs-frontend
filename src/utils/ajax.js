@@ -1,6 +1,7 @@
 import axios from "axios";
+import { STRAPI_URL } from "./constraints";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:1337";
+const API_BASE_URL = STRAPI_URL;
 
 const ajax =  axios.create({
     baseURL: API_BASE_URL

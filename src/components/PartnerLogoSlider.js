@@ -1,3 +1,5 @@
+import { STRAPI_URL } from "@/utils/constraints"
+
 export default async function PartnerLogoSlider({ partner_logos }) {
   const logos = await partner_logos
   return (
@@ -23,7 +25,7 @@ export default async function PartnerLogoSlider({ partner_logos }) {
               className="text-3xl font-semibold text-gray-700 whitespace-nowrap size-28 rounded-full overflow-hidden flex items-center"
             >
               <img 
-                src={`http://localhost:1337${__logo?.logo?.url}`} 
+                src={`${STRAPI_URL}${__logo?.logo?.url}`} 
                 alt={__logo.logo.name} 
                 className="object-cover w-full h-full"
               />

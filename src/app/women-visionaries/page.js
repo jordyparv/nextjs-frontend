@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { GradualSpacing } from "@/components/HeroTextAnimation";
 import { getStrapiData } from "@/utils/utils";
+import { STRAPI_URL } from "@/utils/constraints";
 
 
 
@@ -74,7 +75,7 @@ export default function WomenVisionaries() {
             <a href={`/blogs/${v.name}?author`} target="_blank" rel="noopener noreferrer">
             <div className="relative h-[360px] rounded-2xl overflow-hidden shadow-lg">
               <img
-                src={'http://localhost:1337' + v.avatar.url}
+                src={STRAPI_URL + v.avatar.url}
                 alt={v.name}
                 sizes="(max-width:768px) 100vw, 25vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"

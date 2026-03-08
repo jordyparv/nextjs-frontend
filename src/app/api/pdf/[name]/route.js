@@ -1,3 +1,4 @@
+import { STRAPI_URL } from "@/utils/constraints";
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const fileUrl = searchParams.get("url");
@@ -6,7 +7,7 @@ export async function GET(req) {
     return new Response("Missing file URL", { status: 400 });
   }
 
-  const response = await fetch('http://localhost:1337'+fileUrl);
+  const response = await fetch(STRAPI_URL + fileUrl);
   const buffer = await response.arrayBuffer();
 
   return new Response(buffer, {
