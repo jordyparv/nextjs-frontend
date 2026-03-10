@@ -45,7 +45,7 @@ export default function Podcasts({ podcasts }) {
       barGap: 2,
     });
 
-    ws.load(STRAPI_URL + podcast.audio_file.url);
+    ws.load(podcast.audio_file.url);
 
     ws.on("ready", () => {
       setLoadingId(null);
@@ -124,14 +124,14 @@ export default function Podcasts({ podcasts }) {
         {podcasts.data?.length &&
           podcasts.data?.map((pod) => (
             <motion.div
-              key={pod.id + "" + Date.now().toString()}
+              key={pod.id}
               whileHover={{ y: -6 }}
               className="group"
             >
               <a href={`/podcasts/${pod.slug}`}>
                 <div className="relative h-[350px] rounded-xl overflow-hidden shadow-lg">
                   <img
-                    src={STRAPI_URL + pod?.cover_image?.url}
+                    src={pod?.cover_image?.url}
                     alt={pod.title}
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />

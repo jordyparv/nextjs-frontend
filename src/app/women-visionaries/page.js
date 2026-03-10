@@ -75,7 +75,7 @@ export default function WomenVisionaries() {
             <a href={`/blogs/${v.name}?author`} target="_blank" rel="noopener noreferrer">
             <div className="relative h-[360px] rounded-2xl overflow-hidden shadow-lg">
               <img
-                src={STRAPI_URL + v.avatar.url}
+                src={v.avatar.url}
                 alt={v.name}
                 sizes="(max-width:768px) 100vw, 25vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -94,7 +94,7 @@ export default function WomenVisionaries() {
           </div>
         ))}
       </section>
-
+        
       {/* ================= PAGINATION ================= */}
       <div className="flex justify-center items-center gap-6 pb-32">
         <button

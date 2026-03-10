@@ -14,7 +14,7 @@ export default function BlogPage({ blogData = [] }) {
 
   const getImage = (post) => {
     if (!post?.cover_image?.url) return "/fallback.jpg"
-    return `${STRAPI_URL}${post.cover_image.url}`
+    return post.cover_image.url
   }
 
   return (

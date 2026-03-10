@@ -80,7 +80,7 @@ export default function MagazineDetail({ magazine, trending }) {
             <motion.img
               whileHover={{ rotateY: 6, rotateX: 4, scale: 1.04 }}
               transition={{ type: "spring", stiffness: 120 }}
-              src={STRAPI_URL + magazine.cover_image?.url}
+              src={magazine.cover_image?.url}
               className="relative z-10 shadow-[0_50px_120px_rgba(0,0,0,0.3)] rounded-md"
             />
           </div>

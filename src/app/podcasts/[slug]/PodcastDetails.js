@@ -6,7 +6,7 @@ import WaveSurfer from "wavesurfer.js";
 import { addTagToText } from "@/utils/utils";
 import FullScreenLoader from "@/components/FullSreenLoader";
 import { STRAPI_URL } from "@/utils/constraints";
-const strapiUrl = STRAPI_URL;
+
 export default function Podcast({ podcast, trending }) {
   if (!podcast) {
     return <FullScreenLoader />;
@@ -40,7 +40,7 @@ export default function Podcast({ podcast, trending }) {
 
   wavesurfer.current = ws;
 
-  ws.load(strapiUrl + podcast.audio_file.url);
+  ws.load(podcast.audio_file.url);
 
   ws.on("ready", () => {
     setDuration(ws.getDuration());
@@ -173,7 +173,7 @@ export default function Podcast({ podcast, trending }) {
             <motion.img
               whileHover={{ rotateY: 6, rotateX: 4, scale: 1.04 }}
               transition={{ type: "spring", stiffness: 120 }}
-              src={`${strapiUrl}${podcast?.cover_image?.url}`}
+              src={podcast?.cover_image?.url}
               className="relative z-10 shadow-[0_50px_120px_rgba(0,0,0,0.3)] rounded-md"
             />
           </div>

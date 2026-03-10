@@ -20,7 +20,7 @@ export default function VisionaryVoices({ sectionData }) {
       subtitle: item.profession_title,
       link: item.image_link || "/contact",
       text: item.alt_text,
-      image: item.image?.url ? STRAPI_URL + item.image.url : "/placeholder.jpg",
+      image: item.image?.url ? item.image.url : "/placeholder.jpg",
     })) || [];
 
   return (

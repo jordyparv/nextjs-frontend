@@ -20,7 +20,7 @@ export default function TrendingSection({sectionData}) {
           title: post.title,
           slug: post.slug,
           image: post.cover_image?.url
-            ? STRAPI_URL + post.cover_image.url
+            ?  post.cover_image.url
             : "/placeholder.jpg",
           link: `/blogs/${post.slug}`,
         }));

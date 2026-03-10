@@ -41,10 +41,11 @@ export async function getStrapiData(endpoint, options = {}) {
     // Ensure endpoint starts with a slash, then join
     
     const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+    const url = `${baseUrl}/api${path}`;
     console.log(
-      `Fetching data from: ${path} with options:`
+      `Fetching data from: ${url} with options:`
     );
-    const response = await fetch(`${baseUrl}/api${path}`, defaultOptions);
+    const response = await fetch(url, defaultOptions);
 
     if (!response.ok) {
       throw response.statusText || "Failed to fetch data";

@@ -25,7 +25,7 @@ export default async function PartnerLogoSlider({ partner_logos }) {
               className="text-3xl font-semibold text-gray-700 whitespace-nowrap size-28 rounded-full overflow-hidden flex items-center"
             >
               <img 
-                src={`${STRAPI_URL}${__logo?.logo?.url}`} 
+                src={__logo?.logo?.url}
                 alt={__logo.logo.name} 
                 className="object-cover w-full h-full"
               />

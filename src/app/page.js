@@ -28,9 +28,9 @@ async function getHomePage() {
   const apis = [
     "/home-page?populate=deep",
     '/home-sections?populate=deep',
-    '/posts'
+    // '/posts'
   ];
-  return await Promise.all(apis.map(api => getStrapiData(api))).then(([homeRes, sectionsRes, postsRes]) => {
+  return await Promise.all(apis.map(api => getStrapiData(api))).then(([homeRes, sectionsRes]) => {
     const homeData = homeRes?.data?.[0] || {};
     const sectionsData = sectionsRes?.data || [];
     // Map sections to their respective components

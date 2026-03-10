@@ -47,8 +47,8 @@ export default function EliteArchivesSection({ sectionData }) {
                   {/* Portrait */}
                   <div className="relative h-[520px] overflow-hidden rounded-[28px] shadow-xl">
                     <img
-                      src={STRAPI_URL + member?.image?.url}
                       alt={member?.alt_text}
+                      src={member?.image?.url}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-700 ease-out"
                     />
 
@@ -63,7 +63,7 @@ export default function EliteArchivesSection({ sectionData }) {
                     </h3>
 
                     <p className="mt-3 text-xs uppercase tracking-[0.25em] text-gray-500 transition group-hover:text-[#b8860b]">
-                      {member.profession_title}
+                      {member?.profession_title}
                     </p>
                   </div>
                 </motion.div>

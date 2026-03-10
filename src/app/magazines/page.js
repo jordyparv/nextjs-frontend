@@ -16,9 +16,9 @@ export default async function Page({ searchParams }) {
       title: item.title,
       issue: item.issue,
       excerpt: item.excerpt,
-      image: STRAPI_URL + item.cover_image?.url,
+      image: item.cover_image?.url,
       slug: item.slug,
-      pdf: STRAPI_URL + item.pdf_file?.url,
+      pdf: item.pdf_file?.url,
     })) || [];
 
   const pagination = res?.meta?.pagination || {

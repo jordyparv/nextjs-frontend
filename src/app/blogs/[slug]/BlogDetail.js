@@ -37,7 +37,7 @@ export default function BlogDetail({ post, related }) {
         {post.cover_image?.url && (
           <div className="mt-14 rounded-2xl overflow-hidden shadow-2xl w-[800px] h-[500px] mx-auto ">
             <img
-              src={`${STRAPI_URL}${post.cover_image.url}`}
+              src={post.cover_image.url}
               alt={post.title}
               className="w-full h-full object-cover"
               // priority
@@ -72,7 +72,7 @@ export default function BlogDetail({ post, related }) {
                 {post.gallery.slice(0, 2).map((img) => (
                   <img
                     key={img.id}
-                    src={`${STRAPI_URLRL}${img.url}`}
+                    src={img.url}
                     alt=""
                     className="rounded-xl object-cover w-[600px] h-[400px]"
                   />
@@ -89,7 +89,7 @@ export default function BlogDetail({ post, related }) {
           {post.gallery.slice(2).map((img) => (
             <img
               key={img.id}
-              src={`${STRAPI_URL}${img.url}`}
+              src={img.url}
               alt=""
               className="rounded-xl object-cover w-[600px] h-[400px]"
             />
@@ -121,7 +121,7 @@ export default function BlogDetail({ post, related }) {
               <div key={item.id} className="group cursor-pointer">
                 {item.cover_image?.url && (
                   <img
-                    src={`${STRAPI_URL}${item.cover_image.url}`}
+                    src={item.cover_image.url}
                     width={600}
                     height={400}
                     alt={item.title}

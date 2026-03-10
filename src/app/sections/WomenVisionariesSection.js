@@ -88,7 +88,7 @@ export default function WomenVisionariesSection({ sectionData }) {
                     }}
                   >
                     <img
-                      src={`${STRAPI_URL}${slide?.image?.url}`}
+                      src={slide?.image?.url}
                       alt={slide.alt_text}
                       sizes="(max-width:768px) 100vw, 300px"
                     />
