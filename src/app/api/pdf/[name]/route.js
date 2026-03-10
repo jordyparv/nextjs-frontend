@@ -7,7 +7,7 @@ export async function GET(req) {
     return new Response("Missing file URL", { status: 400 });
   }
 
-  const response = await fetch(STRAPI_URL + fileUrl);
+  const response = await fetch(fileUrl);
   const buffer = await response.arrayBuffer();
 
   return new Response(buffer, {
